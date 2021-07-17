@@ -26,6 +26,11 @@ app.post('/', (req, res) => {
   res.sendStatus(200);
 })
 
+app.post('/reset', (req, res) => {
+  res.sendStatus(200);
+  process.exit(1);
+})
+
 parser.on('data', () => {
   busy = false
   const messageInfo = messageQueue.shift();
@@ -39,11 +44,11 @@ function pushToMicroBit() {
   if (busy || messageQueue.length === 0) {
     return;
   }
-  const message = messageQueue[0].message
+  const message = messageQueue[0].message;
   serial.write(message);
   busy = true;
 }
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://0.0.0.0:${port}`)
+  console.log(`Example app listening at http://0.0.0.0:${port}`);
 })
